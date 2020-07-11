@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tea.dao.product.ProductDao">
+	<select id="getProductBy" resultType="Product">
+		SELECT * FROM tea_product
+		 <where>
+	      <if test="pname!=null ">
+	        and pname like concat( '%', #{pname}, '%')
+	      </if>
+	      <if test="tid!=null">
+	        and tid=#{tid}
+	      </if>
+      </where>
+       ORDER BY modifyTime DESC
+	</select>
+	
+	<select id="findByPid" resultMap="inlist">
+		SELECT p.*,t.* FROM  tea_product p LEFT JOIN  tea_producttype t ON p.tid=t.tid WHERE p.pid=#{pid}
+	</select>
+	<resultMap type="Product" id="inlist" autoMapping="true">
+		<association property="productType" javaType="productType">
+			<id column="tid" property="tid"/>
+			<result column="typeName" property="typeName"/>
+		</association>
+	</resultMap>
+	<select id="getProCollectList" resultMap="prolist">
+		SELECT * FROM tea_productcollect c LEFT JOIN tea_product p ON c.pid=p.pid
+	</select>
+	<resultMap type="ProductCollect" id="prolist" autoMapping="true">
+		<association property="product" javaType="product">
+			<id column="pid" property="pid"/>
+			<result column="pname" property="pname"/>
+			<result column="img" property="img"/>
+			<result column="describe" property="describe"/>
+		</association>
+	</resultMap>
+</mapper>

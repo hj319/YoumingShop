@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tea.dao.product.ProduceMessageDao">
+	<!-- 多表联查，商品表，用户表，评论表 -->
+	<select id="getMessage" resultMap="clist">
+		SELECT m.*,p.pname,u.uname,u.headImage FROM tea_productmessage m
+		INNER JOIN tea_product p ON(m.pid=p.pid)
+		INNER JOIN tea_user u ON(m.uid=u.uid) where p.pid=#{pid} 
+		ORDER BY m.mtime DESC,m.mid DESC
+	</select>
+	<resultMap type="productMessage" id="clist" autoMapping="true"> 
+		<association property="product" javaType="Product">
+			<id column="tid" property="tid"/>
+			<result column="pname" property="pname"/>
+		</association>
+		<association property="user" javaType="User">
+			<id column="uid" property="uid"/>
+			<result column="uname" property="uname"/>
+			<result column="headImage" property="headImage"/>
+		</association>
+	</resultMap>
+</mapper>

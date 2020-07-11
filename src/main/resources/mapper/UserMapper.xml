@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tea.dao.user.UserMapper">
+     <!-- 修改个人信息 -->
+    <update id="updateUser">
+        update tea_user 
+        set headImage=#{headImage},uemail=#{uemail},uaddress=#{uaddress},uphone=#{uphone}
+        where uname=#{uname}
+    </update>
+    <!-- 修改密码 -->
+    <update id="updatePsw">
+       update tea_user
+       set upassword=#{upassword}
+       where uname=#{uname}
+    </update>
+</mapper>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="cn.tea.dao.info.InformationMapper">
+	    <!-- 用户表和消息表联查 -->
+	    <select id="getInfo" resultMap="ilist">
+	         select i.*,u.* from tea_information i
+	         inner join tea_user u on(i.uid=u.uid) 
+	         where u.uid=#{uid}
+	    </select>
+	    <resultMap type="Information" id="ilist" autoMapping="true">
+	       <association property="user" javaType="User">
+	              <id column="uid" property="uid"/>
+	              <result column="uname" property="uname"/>
+	              <result column="headImage" property="headImage"/>
+	       </association>
+	   </resultMap>
+	</mapper>

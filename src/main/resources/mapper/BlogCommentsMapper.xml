@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="cn.tea.dao.blog.BlogCommentsMapper">
+	    <!-- 多表联查 博客评论表和用户表 -->
+	    <select id="getComm" resultMap="clist">
+	         select c.*,u.* from tea_blogcomments c
+	         inner join tea_user u on(c.uid=u.uid) where c.bid=#{bid}
+	    </select>
+	    <resultMap type="BlogComments" id="clist" autoMapping="true">
+	       <association property="user" javaType="User">
+	              <id column="uid" property="uid"/>
+	              <result column="uname" property="uname"/>
+	              <result column="headImage" property="headImage"/>
+	       </association>
+	   </resultMap>
+	</mapper>

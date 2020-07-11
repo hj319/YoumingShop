@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tea.dao.cart.OrderDao">
+	<!-- 批量增加订单的方法 -->
+	<insert id="addOrderAll" parameterType="java.util.List">
+		insert into tea_order(`uname`,`uphone`,`uaddress`,`totalPrice`,courier,trackNum,`creatTime`,uid)
+		values
+		<foreach collection="olists" item="i" index="index" separator=",">
+			(#{i.uname},#{i.uphone},#{i.uaddress},#{i.totalPrice},#{i.courier},#{i.trackNum},#{i.creatTime},#{i.uid})
+		</foreach>
+	</insert>
+	
+	<!-- 根据id批量删除订单列表 -->
+	<delete id="deleteOrderAll">
+		delete from tea_order where uid=#{uid} and oid in
+		<foreach item="o" collection="i" index="no" open="(" separator="," close=")">
+			#{o}
+		</foreach>
+	</delete>
+	
+	<!-- 批量增加订单详情 -->
+	<insert id="addOrderDetailsAll">
+		insert into `tea_order_details`(`pid`,`oid`,`comAmount`,`comName`,`comPrice`,comImage) 
+		values
+		<foreach collection="odlist" item="i" index="index" separator=",">
+			(#{i.pid},#{i.oid},#{i.comAmount},#{i.comName},#{i.comPrice},#{i.comImage})
+		</foreach>
+	</insert>
+</mapper>

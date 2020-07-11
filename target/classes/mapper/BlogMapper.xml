@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="cn.tea.dao.blog.BlogMapper">
+	   <!-- 查询所有博客信息的方法 -->
+	   <select id="getBlogList" resultMap="blogList">
+	        select b.*,u.*,t.* from tea_blog b
+	        inner join tea_user u on(b.uid=u.uid)
+	        inner join tea_blogtype t on(b.tid=t.tid)
+	   </select> 
+	   
+	   <resultMap type="Blog" id="blogList" autoMapping="true">
+	       <association property="user" javaType="User">
+	              <id column="uid" property="uid"/>
+	              <result column="uname" property="uname"/>
+	       </association>
+	       <association property="blogType" javaType="BlogType">
+	              <id column="tid" property="tid"/>
+	              <result column="tname" property="tname"/>
+	       </association>
+	   </resultMap>
+	<select id="findBybid" resultMap="pidlist">
+	      select b.*,u.* from tea_blog b
+	      inner join tea_user u on(b.uid=u.uid)
+	      where b.bid=#{bid}
+	</select>
+	<resultMap type="Blog" id="pidlist" autoMapping="true">
+	       <association property="user" javaType="User">
+	              <id column="uid" property="uid"/>
+	              <result column="uname" property="uname"/>
+	       </association>
+	</resultMap>
+	
+	<!-- 根据标题查询博客 -->
+	<select id="getBlogByTitle" resultType="Blog">
+	   select * from tea_blog
+	     <where>
+	         <if test="btitle!=null">
+	            and btitle like concat('%',#{btitle},'%')
+	         </if>
+	         <if test="tid!=null">
+	            and tid=#{tid}
+	         </if>
+	     </where>
+	</select>
+	<select id="getCollectList" resultMap="inlist">
+		SELECT * FROM tea_blogcollect c LEFT JOIN tea_blog b ON c.bid=b.bid
+	</select>
+	<resultMap type="BlogCollect" id="inlist" autoMapping="true">
+		<association property="blog" javaType="blog">
+			<id column="bid" property="bid"/>
+			<result column="btitle" property="btitle"/>
+		</association>
+	</resultMap>
+	</mapper>

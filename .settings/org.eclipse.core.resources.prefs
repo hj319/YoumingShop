@@ -1,0 +1,15 @@
+eclipse.preferences.version=1
+encoding//src/main/java/cn/tea/controller/BlogController.java=UTF-8
+encoding//src/main/java/cn/tea/controller/CartController.java=UTF-8
+encoding//src/main/java/cn/tea/controller/InstantInquiryController.java=UTF-8
+encoding//src/main/java/cn/tea/controller/OrderController.java=UTF-8
+encoding//src/main/java/cn/tea/controller/OrderDetailsController.java=UTF-8
+encoding//src/main/java/cn/tea/controller/UserController.java=UTF-8
+encoding//src/main/java/cn/tea/dao/blog/BlogCommentsMapper.java=UTF-8
+encoding//src/main/java/cn/tea/dao/blog/BlogMapper.java=UTF-8
+encoding//src/main/java/cn/tea/dao/blog/BlogTypeMapper.java=UTF-8
+encoding//src/main/java/cn/tea/dao/cart/OrderDao.java=UTF-8
+encoding//src/main/java/cn/tea/kdniao/KdniaoTrackQueryAPI.java=UTF-8
+encoding//src/main/java/cn/tea/pojo/Cart.java=UTF-8
+encoding//src/main/java/cn/tea/service/user/UserService.java=UTF-8
+encoding//src/main/resources/datasource.properties=UTF-8
